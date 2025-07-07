@@ -1,0 +1,116 @@
+<% layout("/layouts/boilerplate") %>
+  <div class="edit-container">
+    <div class="edit-card">
+      <div class="edit-header">
+        <h3><i class="fas fa-edit"></i> Edit your Listing</h3>
+      </div>
+      
+      <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="new-listing-form" novalidate enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="title"><i class="fas fa-home"></i> Title</label>
+          <input 
+            name="listing[title]" 
+            value="<%= listing.title %>" 
+            type="text" 
+            id="title"
+            class="form-control"
+            placeholder="Enter listing title"
+            required
+          />
+          <div class="valid-feedback">Title looks good!</div>
+        </div>
+
+        <div class="form-group">
+          <label for="description"><i class="fas fa-align-left"></i> Description</label>
+          <textarea 
+            name="listing[description]" 
+            id="description"
+            class="form-control textarea-field"
+            placeholder="Describe your listing..."
+            rows="4"
+            required
+          ><%= listing.description %></textarea>
+          <div class="invalid-feedback">Please enter the valid description</div>
+        </div>
+
+        <div class="form-group">
+          <label for="image"><i class="fas fa-image"></i>Upload New Image</label>
+          <input 
+            name="listing[imageFile]" 
+            type="file" 
+            class="form-control"
+          />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group half-width">
+            <label for="price"><i class="fas fa-rupee-sign"></i> Price</label>
+            <input 
+              name="listing[price]" 
+              value="<%= listing.price %>" 
+              type="number" 
+              id="price"
+              class="form-control"
+              placeholder="0"
+              min="0"
+              required
+            />
+            <div class="invalid-feedback">Price should be valid</div>
+          </div>
+
+          <div class="form-group half-width">
+            <label for="country"><i class="fas fa-globe"></i> Country</label>
+            <input 
+              name="listing[country]" 
+              value="<%= listing.country %>" 
+              type="text" 
+              id="country"
+              class="form-control"
+              placeholder="Enter country"
+              required
+            />
+            <div class="invalid-feedback">Country name should be valid</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="location"><i class="fas fa-map-marker-alt"></i> Location</label>
+          <input 
+            name="listing[location]" 
+            value="<%= listing.location %>" 
+            type="text" 
+            id="location"
+            class="form-control"
+            placeholder="Enter specific location"
+            required
+          />
+          <div class="invalid-feedback"> Location should be valid</div>
+        </div>
+
+        <select name="listing[category]" id="category" class="form-control" required>
+          <option value="">Select category</option>
+          <option value="Nature" <%= listing.category === 'Nature' ? 'selected' : '' %>>Nature</option>
+          <option value="City" <%= listing.category === 'City' ? 'selected' : '' %>>City</option>
+          <option value="Beach" <%= listing.category === 'Beach' ? 'selected' : '' %>>Beach</option>
+          <option value="Mountains" <%= listing.category === 'Mountains' ? 'selected' : '' %>>Mountains</option>
+          <option value="Camping" <%= listing.category === 'Camping' ? 'selected' : '' %>>Camping</option>
+          <option value="Lake" <%= listing.category === 'Lake' ? 'selected' : '' %>>Lake</option>
+          <option value="Homes" <%= listing.category === 'Homes' ? 'selected' : '' %>>Homes</option>
+          <option value="Boats" <%= listing.category === 'Boats' ? 'selected' : '' %>>Boats</option>
+          <option value="Windmills" <%= listing.category === 'Windmills' ? 'selected' : '' %>>Windmills</option>
+          <option value="Hotels" <%= listing.category === 'Hotels' ? 'selected' : '' %>>Hotels</option>
+          <option value="Heritage" <%= listing.category === 'Heritage' ? 'selected' : '' %>>Heritage</option>
+          <option value="Unique" <%= listing.category === 'Unique' ? 'selected' : '' %>>Unique</option>
+        </select>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">
+            <i class="fas fa-save"></i> Update Listing
+          </button>
+          <a href="/listings/<%= listing._id %>" class="btn-secondary">
+            <i class="fas fa-times"></i> Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
