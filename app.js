@@ -82,6 +82,11 @@ app.use("/listings", listingRoute);
 app.use("/listings/:id/reviews", reviewRoute);
 app.use("/", userRoute);
 
+app.get("/", (req, res) => {
+    req.flash("success", "Welcome to Wanderly!");
+    res.redirect("/listings");
+});
+
 // error-handling middleware
 app.use((err, req, res, next) => {
     let {statusCode = 500, message = "this is a random error"} = err;
