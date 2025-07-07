@@ -77,15 +77,16 @@ app.use((req, res, next) => {
     next();
 })
 
+app.get("/", (req, res) => {
+    req.flash("success", "Welcome to Wanderly!");
+    res.redirect("/listings");
+});
+
 // to access listing routes 
 app.use("/listings", listingRoute);
 app.use("/listings/:id/reviews", reviewRoute);
 app.use("/", userRoute);
 
-app.get("/", (req, res) => {
-    req.flash("success", "Welcome to Wanderly!");
-    res.redirect("/listings");
-});
 
 // error-handling middleware
 app.use((err, req, res, next) => {
