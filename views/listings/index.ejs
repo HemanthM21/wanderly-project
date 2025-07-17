@@ -3,79 +3,77 @@
 <body>
   <div class="text-center my-3">
     <p class="tagline">WHERE STORIES BEGIN</p>
-
-    <div class="container my-4 px-3">
+    <div class="container my-4">
       <div class="d-flex justify-content-between align-items-start flex-wrap">
-        <!-- Responsive Category Grid -->
-        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-4">
+        <div class="d-flex justify-content-start flex-wrap gap-5">
           <% /* Category items */ %>
-          <div class="col text-center category-item">
+          <div class="text-center category-item">
             <a href="/listings/category/Nature" class="text-decoration-none text-reset">
               <i class="fas fa-tree fa-lg text-success"></i>
               <p class="small mt-2">Nature</p>
             </a>
           </div>
-          <div class="col text-center category-item">
+          <div class="text-center category-item">
             <a href="/listings/category/City" class="text-decoration-none text-reset">
               <i class="fas fa-city fa-lg text-primary"></i>
               <p class="small mt-2">City</p>
             </a>
           </div>
-          <div class="col text-center category-item">
+          <div class="text-center category-item">
             <a href="/listings/category/Beach" class="text-decoration-none text-reset">
               <i class="fas fa-umbrella-beach fa-lg text-info"></i>
               <p class="small mt-2">Beach</p>
             </a>
           </div>
-          <div class="col text-center category-item">
+          <div class="text-center category-item">
             <a href="/listings/category/Mountains" class="text-decoration-none text-reset">
               <i class="fas fa-mountain fa-lg text-secondary"></i>
               <p class="small mt-2">Mountains</p>
             </a>
           </div>
-          <div class="col text-center category-item">
+          <div class="text-center category-item">
             <a href="/listings/category/Camping" class="text-decoration-none text-reset">
               <i class="fas fa-campground fa-lg text-warning"></i>
               <p class="small mt-2">Camping</p>
             </a>
           </div>
-          <div class="col text-center category-item">
+          <div class="text-center category-item">
             <a href="/listings/category/Lake" class="text-decoration-none text-reset">
               <i class="fas fa-water fa-lg text-primary"></i>
               <p class="small mt-2">Lake</p>
             </a>
           </div>
-          <div class="col text-center category-item">
+          <div class="text-center category-item">
             <a href="/listings/category/Homes" class="text-decoration-none text-reset">
               <i class="fas fa-home fa-lg text-dark"></i>
               <p class="small mt-2">Homes</p>
             </a>
           </div>
-          <div class="col text-center category-item">
+          <div class="text-center category-item">
             <a href="/listings/category/Boats" class="text-decoration-none text-reset">
               <i class="fas fa-ship fa-lg text-info"></i>
               <p class="small mt-2">Boats</p>
             </a>
           </div>
-          <div class="col text-center category-item">
+          <div class="text-center category-item">
             <a href="/listings/category/Windmills" class="text-decoration-none text-reset">
               <i class="fas fa-wind fa-lg text-success"></i>
               <p class="small mt-2">Windmills</p>
             </a>
           </div>
-          <div class="col text-center category-item">
+          <div class="text-center category-item">
             <a href="/listings/category/Hotels" class="text-decoration-none text-reset">
               <i class="fas fa-hotel fa-lg text-danger"></i>
               <p class="small mt-2">Hotels</p>
             </a>
           </div>
-          <div class="col text-center category-item">
+          <div class="text-center category-item">
             <a href="/listings/category/Heritage" class="text-decoration-none text-reset">
               <i class="fas fa-vihara fa-lg text-warning"></i>
               <p class="small mt-2">Heritage</p>
             </a>
           </div>
-          <div class="col text-center category-item">
+          <div class="text-center category-item">
             <a href="/listings/category/Unique" class="text-decoration-none text-reset">
               <i class="fas fa-igloo fa-lg text-info"></i>
               <p class="small mt-2">Unique</p>
@@ -83,7 +81,6 @@
           </div>
         </div>
 
-        <!-- Tax toggle -->
         <div class="form-check form-switch fs-6 mt-3 ms-auto">
           <input class="form-check-input" type="checkbox" id="toggleTax">
           <label class="form-check-label ms-2" for="toggleTax">Show Price with Tax</label>
@@ -92,7 +89,7 @@
     </div>
 
     <% 
-      // Ensure location is defined
+      // Make sure location is always defined:
       let searchLocation = typeof location !== 'undefined' ? location : '';
     %>
 
@@ -109,49 +106,39 @@
         <div class="text-center mt-4">No listings found!</div>
       <% } %>
     <% } %>
+
   </div>
 
-  <!-- Listings -->
-  <div class="container">
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-      <% for (let listing of allListings) { %>
-        <div class="col mb-4">
-          <a href="/listings/<%= listing._id %>" class="listing-link text-decoration-none text-dark">
-            <div class="card h-100">
-              <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image" style="height: 20rem; object-fit: cover;">
-              <div class="card-body">
-                <p class="card-text">
-                  <b><%= listing.title %></b> <br>
-                  &#8377; <%= listing.price.toLocaleString("en-IN") %>
-                  <i class="tax-info" style="display: none;">&nbsp;+18% GST</i>
-                </p>
-              </div>
-            </div>
-          </a>
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <% for (let listing of allListings) { %>
+      <a href="/listings/<%= listing._id %>" class="listing-link">
+        <div class="card col mb-4">
+          <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image" style="height: 20rem;">
+          <div class="card-body">
+            <p class="card-text">
+              <b><%= listing.title %></b> <br>
+              &#8377; <%= listing.price.toLocaleString("en-IN") %>
+              <i class="tax-info">&nbsp;+18% GST</i>
+            </p>
+          </div>
         </div>
-      <% } %>
-    </div>
+      </a>
+    <% } %>
   </div>
+
+
 </body>
 
-<!-- Optional styling -->
-<style>
-  .category-item i {
-    font-size: 1.8rem;
-  }
-
-  .category-item a:hover {
-    color: #0d6efd;
-  }
-</style>
-
-<!-- Tax toggle script -->
 <script>
-  const taxSwitch = document.getElementById("toggleTax");
+  let taxSwitch = document.getElementById("toggleTax");
   taxSwitch.addEventListener("click", () => {
-    const taxInfo = document.getElementsByClassName("tax-info");
+    let taxInfo = document.getElementsByClassName("tax-info");
     for (let info of taxInfo) {
-      info.style.display = (info.style.display === "inline") ? "none" : "inline";
+      if (info.style.display !== "inline") {
+        info.style.display = "inline";
+      } else {
+        info.style.display = "none";
+      }
     }
   });
 </script>
