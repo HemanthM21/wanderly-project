@@ -1,17 +1,43 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom sticky-top">
   <div class="container-fluid">
+    <!-- Brand Logo -->
     <a class="navbar-brand" href="/listings">
       <img src="/images/pic2.png" alt="Wanderly" width="70" height="70">
     </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+    <!-- Search Bar (Always visible) -->
+    <form action="/listings/search" method="GET"
+      class="d-flex align-items-center mx-auto my-2 search-container order-lg-1 flex-grow-1" style="max-width: 600px;">
+      <div class="search-box d-flex align-items-center bg-white rounded-pill shadow-sm border px-3 py-2 w-100">
+        <i class="fas fa-map-marker-alt text-danger me-2"></i>
+        <input type="text" name="location" class="form-control border-0 me-2" placeholder="Anywhere"
+          style="box-shadow: none; font-size: 14px;">
+        <div class="vr me-2 d-none d-md-block"></div>
+        <i class="fas fa-calendar-alt text-primary me-2 d-none d-md-block"></i>
+        <input type="text" name="date" class="form-control border-0 me-2 d-none d-md-block" placeholder="Any week"
+          style="box-shadow: none; font-size: 14px;">
+        <div class="vr me-2 d-none d-md-block"></div>
+        <i class="fas fa-user-friends text-success me-2 d-none d-md-block"></i>
+        <input type="text" name="guests" class="form-control border-0 me-2 d-none d-md-block" placeholder="Add guests"
+          style="box-shadow: none; font-size: 14px;">
+        <button type="submit"
+          class="btn btn-danger rounded-circle d-flex align-items-center justify-content-center"
+          style="width: 40px; height: 40px; background: linear-gradient(45deg, #ff385c, #e61e4d);">
+          <i class="fas fa-search text-white"></i>
+        </button>
+      </div>
+    </form>
+
+    <!-- Toggler (Hamburger) -->
+    <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
       aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarContent">
+    <!-- Collapsible Nav Content -->
+    <div class="collapse navbar-collapse order-lg-2" id="navbarContent">
       <!-- Left Nav Links -->
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 mt-3 mt-lg-0">
         <li class="nav-item">
           <a class="nav-link" href="/listings">Explore</a>
         </li>
@@ -20,46 +46,22 @@
         </li>
       </ul>
 
-      <!-- Search Bar -->
-      <form action="/listings/search" method="GET"
-        class="d-flex align-items-center mx-auto my-2 my-lg-0 search-container" style="max-width: 100%;">
-        <div class="search-box d-flex align-items-center bg-white rounded-pill shadow-sm border px-3 py-2 w-100">
-          <i class="fas fa-map-marker-alt text-danger me-2"></i>
-          <input type="text" name="location" class="form-control border-0 me-2" placeholder="Anywhere"
-            style="box-shadow: none; font-size: 14px;">
-          <div class="vr me-2 d-none d-md-block"></div>
-          <i class="fas fa-calendar-alt text-primary me-2 d-none d-md-block"></i>
-          <input type="text" name="date" class="form-control border-0 me-2 d-none d-md-block" placeholder="Any week"
-            style="box-shadow: none; font-size: 14px;">
-          <div class="vr me-2 d-none d-md-block"></div>
-          <i class="fas fa-user-friends text-success me-2 d-none d-md-block"></i>
-          <input type="text" name="guests" class="form-control border-0 me-2 d-none d-md-block" placeholder="Add guests"
-            style="box-shadow: none; font-size: 14px;">
-          <button type="submit"
-            class="btn btn-danger rounded-circle d-flex align-items-center justify-content-center"
-            style="width: 40px; height: 40px; background: linear-gradient(45deg, #ff385c, #e61e4d);">
-            <i class="fas fa-search text-white"></i>
-          </button>
-        </div>
-      </form>
-
       <!-- Right Auth Buttons -->
-      <ul class="navbar-nav ms-auto align-items-center mt-2 mt-lg-0">
+      <ul class="navbar-nav ms-auto align-items-center mb-2 mb-lg-0">
         <% if (!currUser) { %>
-        <li class="nav-item me-2">
-          <a class="btn btn-outline-primary btn-sm" href="/signup">Sign Up</a>
-        </li>
-        <li class="nav-item">
-          <a class="btn btn-primary btn-sm" href="/login">Sign In</a>
-        </li>
-        <% } %>
-        <% if (currUser) { %>
-        <li class="nav-item me-3">
-          <span class="nav-link">Hello, <%= currUser.username %>!</span>
-        </li>
-        <li class="nav-item">
-          <a class="btn btn-danger btn-sm" href="/logout">Logout</a>
-        </li>
+          <li class="nav-item me-2">
+            <a class="btn btn-outline-primary btn-sm" href="/signup">Sign Up</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-primary btn-sm" href="/login">Sign In</a>
+          </li>
+        <% } else { %>
+          <li class="nav-item me-3">
+            <span class="nav-link">Hello, <%= currUser.username %>!</span>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-danger btn-sm" href="/logout">Logout</a>
+          </li>
         <% } %>
       </ul>
     </div>
@@ -67,47 +69,47 @@
 </nav>
 
 <style>
-.search-box {
-  transition: all 0.3s ease;
-  border: 2px solid transparent !important;
-}
-
-.search-box:hover {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12) !important;
-  border-color: #e0e0e0 !important;
-}
-
-.search-box input::placeholder {
-  color: #6c757d;
-  font-weight: 500;
-}
-
-.search-box input:focus {
-  outline: none !important;
-}
-
-@media (max-width: 991px) {
-  .search-container {
-    flex-direction: column;
-    padding: 0 10px;
-    width: 100%;
-  }
-
   .search-box {
-    flex-wrap: wrap;
-    padding: 8px 12px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent !important;
   }
 
-  .search-box input,
-  .search-box i,
-  .search-box .vr {
-    margin-bottom: 5px;
+  .search-box:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12) !important;
+    border-color: #e0e0e0 !important;
   }
 
-  .search-box .vr,
-  .search-box i,
-  .search-box input {
-    display: block !important;
+  .search-box input::placeholder {
+    color: #6c757d;
+    font-weight: 500;
   }
-}
+
+  .search-box input:focus {
+    outline: none !important;
+  }
+
+  @media (max-width: 991px) {
+    .search-container {
+      order: 2;
+      padding: 0 10px;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .search-box {
+      flex-wrap: wrap;
+      padding: 8px 12px;
+    }
+
+    .search-box input,
+    .search-box i,
+    .search-box .vr {
+      margin-bottom: 5px;
+      display: block !important;
+    }
+
+    .search-box .vr {
+      display: none !important;
+    }
+  }
 </style>
